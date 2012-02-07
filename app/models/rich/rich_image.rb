@@ -6,7 +6,10 @@ module Rich
     
     paginates_per 27
     
-    has_attached_file :image
+      
+    has_attached_file :image, :storage => :s3,
+     :s3_credentials => "#{Rails.root}/config/s3.yml",
+     :path => "/:style/:id/:filename"
     
     validates_attachment_presence :image
     validate :check_content_type    
