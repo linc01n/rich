@@ -9,7 +9,9 @@ module Rich
     
     paginates_per 34
     
-    has_attached_file :rich_file, :styles => Proc.new {|a| a.instance.set_styles }
+    has_attached_file :rich_file, :styles => Proc.new {|a| a.instance.set_styles }, :storage => :s3,
+     :s3_credentials => "#{Rails.root}/config/s3.yml",
+     :path => "/:style/:id/:filename"
     
     validates_attachment_presence :rich_file
     validate :check_content_type
